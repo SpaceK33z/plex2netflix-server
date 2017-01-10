@@ -21,9 +21,12 @@ function isFreshInCache(timestamp) {
 
 server.get('/search', (req, res) => {
     const imdb = req.query.imdb;
+    const title = req.query.title;
+    const year = req.query.year;
 
-    if (!imdb) {
-        res.send(400, { error: 'Add a `imdb` query parameter' });
+    if (!imdb && (!title || !year)) {
+        res.send(400, { error: 'Add a `imdb` or `title` + `year` query parameter.' });
+        return;
     }
 
     function sendRes(data) {
@@ -34,20 +37,21 @@ server.get('/search', (req, res) => {
     }
 
     // Utilize cache instead of a unogs API request if it's still fresh
-    const cacheReq = cache.get(imdb);
+    const cacheKey = imdb || `${title} (${year})`;
+    const cacheReq = cache.get(cacheKey);
     if (cacheReq && isFreshInCache(cacheReq.checkedAt)) {
         sendRes(cacheReq);
         addUsage({ cache: true });
         return;
     }
 
-    unogsApi(imdb)
+    unogsApi({ imdb, title, year })
     .then((countryList) => {
         const data = {
             countries: countryList,
             checkedAt: getUnixTimestamp(),
         };
-        cache.set(imdb, data);
+        cache.set(cacheKey, data);
         addUsage({ cache: false });
         sendRes(data);
     })
