@@ -8,6 +8,8 @@ The external API is graciously [**powered by uNoGS**](http://unogs.com/).
 
 ## Install
 
-1. Copy `.env.example` to `.env` and fill in your uNoGS API key.
+Node.js v6 or higher is required.
+
+1. Copy `.env.example` to `.env` and fill in the environment variables.
 2. `npm install` or `yarn`.
 3. `npm start`.
