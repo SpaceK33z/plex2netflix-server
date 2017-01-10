@@ -19,7 +19,7 @@ function isFreshInCache(timestamp) {
     return (currentTimestamp - timestamp) < cacheForSeconds;
 }
 
-server.get('/search', (req, res) => {
+server.get('/plex2netflix/search', (req, res) => {
     const imdb = req.query.imdb;
     const title = req.query.title;
     const year = req.query.year;
