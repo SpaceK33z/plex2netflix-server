@@ -56,6 +56,6 @@ server.get('/search', (req, res) => {
     });
 });
 
-server.listen(8080, () => {
+server.listen(process.env.P2N_PORT, () => {
     console.log(`Listening at ${server.url}`);
 });
