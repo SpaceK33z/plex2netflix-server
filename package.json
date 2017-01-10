@@ -1,0 +1,21 @@
+{
+  "name": "plex2netflix-server",
+  "version": "1.0.0",
+  "description": "Server part for plex2netflix",
+  "main": "server.js",
+  "author": "Kees Kluskens <kees@webduck.nl>",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "got": "^6.7.1",
+    "restify": "^4.3.0"
+  },
+  "scripts": {
+    "start": "nodemon --ignore stats.json server.js"
+  },
+  "devDependencies": {
+    "eslint": "^3.13.1",
+    "eslint-config-codeyellow": "^2.0.0",
+    "nodemon": "^1.11.0"
+  }
+}
