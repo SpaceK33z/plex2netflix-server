@@ -4,7 +4,7 @@ This is the server part for [plex2netflix](https://github.com/SpaceK33z/plex2net
 
 It does one simple thing: a request to an external API to check if an IMDb ID or movie title+year is available on Netflix. It then caches the result of the external API for a while, to prevent hammering it.
 
-The external API is graciously provided by [**uNoGS**](http://unogs.com/).
+The external API is graciously [**powered by uNoGS**](http://unogs.com/).
 
 ## Install
 
