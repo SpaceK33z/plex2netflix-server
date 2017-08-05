@@ -7,7 +7,7 @@ const unogsApi = require('./lib/unogs');
 const addUsage = require('./lib/usage');
 
 const server = restify.createServer();
-server.use(restify.queryParser());
+server.use(restify.plugins.queryParser());
 
 const getUnixTimestamp = () => Math.floor(Date.now() / 1000);
 const cache = new Map();
