@@ -56,7 +56,9 @@ server.get('/plex2netflix/search', (req, res) => {
         sendRes(data);
     })
     .catch((err) => {
-        console.log('API error', err && err.response);
+        if (err.response) {
+            console.log('API error', 'statusCode:', err.response.statusCode)
+        }
     });
 });
 
