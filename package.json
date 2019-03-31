@@ -6,12 +6,13 @@
   "author": "Kees Kluskens <kees@webduck.nl>",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^5.0.1",
-    "got": "^8.3.0",
-    "restify": "^6.3.4"
+    "dotenv": "^7.0.0",
+    "got": "^9.6.0",
+    "restify": "^8.2.0"
   },
   "scripts": {
-    "start": "nodemon --ignore stats.json server.js"
+    "start": "nodemon --ignore stats.json server.js",
+    "now-start": "node server.js"
   },
   "devDependencies": {
     "@volst/eslint-config": "^2.1.0",

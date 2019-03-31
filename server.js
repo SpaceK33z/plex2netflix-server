@@ -4,7 +4,6 @@ const restify = require('restify');
 dotenv.config();
 
 const unogsApi = require('./lib/unogs');
-const addUsage = require('./lib/usage');
 
 const server = restify.createServer();
 server.use(restify.plugins.queryParser());
@@ -19,7 +18,7 @@ function isFreshInCache(timestamp) {
   return currentTimestamp - timestamp < cacheForSeconds;
 }
 
-server.get('/plex2netflix/search', (req, res) => {
+server.get('/search', (req, res) => {
   const imdb = req.query.imdb;
   const title = req.query.title;
   const year = req.query.year;
@@ -43,7 +42,6 @@ server.get('/plex2netflix/search', (req, res) => {
   const cacheReq = cache.get(cacheKey);
   if (cacheReq && isFreshInCache(cacheReq.checkedAt)) {
     sendRes(cacheReq);
-    addUsage({ cache: true });
     return;
   }
 
@@ -54,12 +52,15 @@ server.get('/plex2netflix/search', (req, res) => {
         checkedAt: getUnixTimestamp(),
       };
       cache.set(cacheKey, data);
-      addUsage({ cache: false });
       sendRes(data);
     })
     .catch(err => {
       if (err.response) {
-        console.log('API error', 'statusCode:', err.response.statusCode);
+        const code = err.response.statusCode;
+        console.log('API error', 'statusCode:', code);
+        res.send(400, {
+          error: `API error response code from uNogs: ${code}.`,
+        });
       }
     });
 });
